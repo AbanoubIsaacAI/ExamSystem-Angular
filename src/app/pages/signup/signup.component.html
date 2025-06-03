@@ -1,0 +1,55 @@
+<form [formGroup]="registrationForm">
+  <label for="name">Name</label>
+  <input
+    name="name"
+    type="text"
+    id="name"
+    class="form-control"
+    placeholder="Enter your name"
+    formControlName="name"
+  />
+  @if(getName().touched){ @if(getName().hasError('required')){
+  <p class="text-danger">You must enter a name</p>
+  } @if (getName().hasError('minlength')) {
+  <p class="text-danger">The name must contain at least 4 characters</p>
+  } }
+  <label for="email">Email</label>
+  <input
+    name="email"
+    type="text"
+    id="email"
+    class="form-control"
+    placeholder="Enter your email"
+    formControlName="email"
+  />
+  @if (getEmail().touched) { @if (getEmail().hasError('required')) {
+  <p class="text-danger">Email is required</p>
+  } @if (getEmail().hasError('pattern')) {
+  <p class="text-danger">Please enter a valid email</p>
+  } }
+
+  <label for="password">Password</label>
+  <input
+    name="password"
+    type="password"
+    id="password"
+    class="form-control"
+    placeholder="Enter your password"
+    formControlName="password"
+  />
+  @if (getPassword().touched) { @if (getPassword().hasError('required')) {
+  <p class="text-danger">Password is required</p>
+  } @if (getPassword().hasError('minlength')) {
+  <p class="text-danger">Minimum 8 characters required</p>
+  } @if (getPassword().hasError('pattern')) {
+  <p class="text-danger">
+    Must contain: uppercase, lowercase, number, and special character
+  </p>
+  } }
+  <input
+    type="submit"
+    value="Sign up"
+    class="btn btn-primary mt-2"
+    (click)="Register($event)"
+  />
+</form>
