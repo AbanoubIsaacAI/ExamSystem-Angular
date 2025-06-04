@@ -1,1 +1,28 @@
-<p>login works!</p>
+<form>
+  <label for="email">Email</label>
+  <input
+    name="email"
+    type="text"
+    id="email"
+    class="form-control"
+    placeholder="Enter your email"
+    formControlName="email"
+  />
+
+  <label for="password">Password</label>
+  <input
+    name="password"
+    type="password"
+    id="password"
+    class="form-control"
+    placeholder="Enter your password"
+    formControlName="password"
+  />
+
+  <input
+    type="submit"
+    value="Log in"
+    class="btn btn-primary mt-2"
+    (click)="login()"
+  />
+</form>
