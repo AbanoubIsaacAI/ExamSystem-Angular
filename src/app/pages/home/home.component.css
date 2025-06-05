@@ -1,0 +1,58 @@
+.grey-text {
+  color: #646464;
+  text-align: center;
+}
+
+.darkblue-text {
+  color: #161b2d;
+  font-weight: 600;
+  font-size: 4em;
+}
+.text-div {
+  padding: 50px 0;
+}
+
+.btn-bg {
+  background-color: #ff4e59;
+  color: white;
+  width: 7rem;
+  padding: 8px;
+}
+
+.stone {
+  position: absolute;
+  left: 150px;
+  animation: UpAndDown 5s infinite;
+}
+
+.snake {
+  position: absolute;
+  right: 100px;
+  animation: UpAndDown 5s infinite;
+}
+
+.mx-20 {
+  margin: 16px 250px;
+}
+.my-16 {
+  margin: 16px 0;
+}
+@keyframes UpAndDown {
+  0% {
+    top: 250px;
+  }
+  50% {
+    top: 300px;
+  }
+  100% {
+    top: 250px;
+  }
+}
+
+.uparrow-bg {
+  background-color: #ff4e59;
+  color: white;
+  position: fixed;
+  right: 40px;
+  top: calc(100vh - 100px);
+}

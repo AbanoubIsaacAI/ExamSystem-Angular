@@ -1,0 +1,14 @@
+@for (question of questions; track question.id) {
+<div class="question-card">
+  <h3>{{ question.questionText }}</h3>
+
+  <div class="options-container">
+    @for (option of question.options; track $index) {
+    <div class="option" (click)="selectAnswer(question.id, $index)">
+      <span class="option-letter">{{ optionsLetters[$index] }}</span>
+      {{ option }}
+    </div>
+    }
+  </div>
+</div>
+}

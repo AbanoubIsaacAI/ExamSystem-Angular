@@ -1,1 +1,22 @@
-<p>home works!</p>
+<main>
+  <div class="d-flex align-items-center flex-column text-div mx-20 text-center">
+    <p class="grey-text my-16">Excel in Your Exams</p>
+    <h1 class="darkblue-text my-16">Take online exams to test your skills</h1>
+    <p class="grey-text my-16">
+      Redefine learning with cutting-edge exam preparation tools. Our platform
+      leverages multimedia-based courses and proactive teaching strategies to
+      build a strong academic foundation efficiently.
+    </p>
+    <button class="btn btn-bg" [routerLink]="['/exams']">
+      <b>Try it now</b>
+    </button>
+  </div>
+  <img src="./snake-vec-1.svg" class="snake" alt="" />
+  <img src="./stone-pattern-2.svg" class="stone" alt="" />
+  <div class="mx-2">
+    <img width="100%" src="./hero-main-banner-1.png" alt="" />
+  </div>
+  @if(showButton){<button class="btn uparrow-bg" (click)="scrollToTop()">
+    <i class="bi bi-arrow-up"></i></button
+  >}
+</main>

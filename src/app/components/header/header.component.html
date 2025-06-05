@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav
+  class="navbar navbar-expand-lg navbar-dark nav-color py-20 border-b"
+  [ngClass]="{ 'fixed-nav': fixedNav }"
+>
   <div class="container-fluid">
     <a class="navbar-brand" href="#"> Exam System </a>
 
@@ -18,10 +21,10 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a
-            class="nav-link active"
+            class="nav-link activeLink"
             aria-current="page"
             [routerLink]="['/home']"
-            routerLinkActive="active"
+            routerLinkActive="activeLink"
             [routerLinkActiveOptions]="{ exact: true }"
             >Home</a
           >
@@ -29,8 +32,17 @@
         <li class="nav-item">
           <a
             class="nav-link"
+            [routerLink]="['/exams']"
+            routerLinkActive="activeLink"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Exams</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
             href="/about"
-            routerLinkActive="active"
+            routerLinkActive="activeLink"
             [routerLinkActiveOptions]="{ exact: true }"
             >About</a
           >
@@ -42,7 +54,7 @@
           <a
             class="nav-link"
             [routerLink]="['/login']"
-            routerLinkActive="active"
+            routerLinkActive="activeLink"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <i class="bi bi-box-arrow-in-right me-1"></i>Log In
@@ -50,9 +62,9 @@
         </li>
         <li class="nav-item">
           <a
-            class="btn btn-outline-light ms-2"
+            class="btn btn-outline-none ms-2"
             [routerLink]="['/signup']"
-            routerLinkActive="active"
+            routerLinkActive="activeLink"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <i class="bi bi-person-plus me-1"></i>Sign Up
