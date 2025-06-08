@@ -3,6 +3,7 @@ export interface User {
   username: string;
   email: string;
   password: string;
+  scores?: [{ examID: string; examtitle: string; score: number }];
   role: 'student' | 'admin';
   token?: string;
 }

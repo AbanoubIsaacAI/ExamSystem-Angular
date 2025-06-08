@@ -6,5 +6,7 @@ export interface Result {
   examID: string;
   score: number;
   total: number;
+  passed: boolean;
   answers: Answers[];
+  submittedAt: Date;
 }

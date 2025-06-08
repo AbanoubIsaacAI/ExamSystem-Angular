@@ -92,21 +92,6 @@
   font-weight: bold;
 }
 
-.submit-btn {
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.submit-btn:hover {
-  background: #2980b9;
-}
-
 .results {
   text-align: center;
   padding: 20px;
@@ -120,4 +105,13 @@
 
 .failed {
   color: #e74c3c;
+}
+
+.btn-bg {
+  background-color: #ff4e59;
+  color: white;
+  padding: 8px;
+  transform: translateX(-50%);
+  position: relative;
+  left: 50%;
 }

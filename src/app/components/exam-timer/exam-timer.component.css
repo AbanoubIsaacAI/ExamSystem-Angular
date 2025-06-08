@@ -1,0 +1,13 @@
+.timer {
+  font-family: monospace;
+  font-size: 2rem;
+  color: #333;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  display: inline-block;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  border: #333 solid 1px;
+}

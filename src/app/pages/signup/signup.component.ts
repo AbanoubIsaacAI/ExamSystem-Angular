@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { UsersService } from '../../services/users.service';
+import { User } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +16,12 @@ import {
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
+  constructor(private UsersService: UsersService, private router: Router) {}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+
   registrationForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
     email: new FormControl('', [
@@ -38,10 +47,37 @@ export class SignupComponent {
     return this.registrationForm.controls['password'];
   }
 
+  addUser() {
+    if (this.registrationForm.invalid) {
+      alert('Please fix the errors before submitting.');
+      return;
+    }
+
+    const formValues = this.registrationForm.value;
+
+    const newUser: User = {
+      id: uuidv4(),
+      username: formValues.name ?? '',
+      email: formValues.email ?? '',
+      password: formValues.password ?? '',
+      role: 'student',
+    };
+
+    this.UsersService.AddNewUser(newUser).subscribe({
+      next: (createdUser: User) => {
+        console.log('User created:', createdUser);
+      },
+      error: (err) => {
+        console.error('Error creating user:', err);
+      },
+    });
+    this.router.navigate(['/login']);
+  }
+
   Register(e: Event) {
     e.preventDefault();
     if (this.registrationForm.status == 'VALID') {
-      console.log('the form is valid');
+      this.addUser();
     } else {
       alert('Fix the errors');
     }
