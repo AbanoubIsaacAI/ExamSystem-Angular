@@ -19,8 +19,15 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
   constructor(private UsersService: UsersService, private router: Router) {}
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.UsersService.getAllUsers().subscribe({
+      next: (response: User[]) => {
+        this.allUsers = response;
+        console.log(this.allUsers);
+      },
+    });
   }
+
+  allUsers!: User[];
 
   registrationForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -46,7 +53,7 @@ export class SignupComponent implements OnInit {
   getPassword() {
     return this.registrationForm.controls['password'];
   }
-
+  doesEmailExist: boolean = false;
   addUser() {
     if (this.registrationForm.invalid) {
       alert('Please fix the errors before submitting.');
@@ -55,6 +62,13 @@ export class SignupComponent implements OnInit {
 
     const formValues = this.registrationForm.value;
 
+    this.doesEmailExist = this.allUsers.some(
+      (user) => user.email === formValues.email
+    );
+
+    if (this.doesEmailExist) {
+      return;
+    }
     const newUser: User = {
       id: uuidv4(),
       username: formValues.name ?? '',

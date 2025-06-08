@@ -8,17 +8,10 @@
       "role": "admin"
     },
     {
-      "id": "99ca4eb6-d423-4f27-b03e-6fb35409e362",
+      "id": "d5cbbef0-54ae-4eea-94b4-2f84122a685d",
       "username": "Abanoub",
       "email": "aa@gmail.com",
-      "password": "Aa1234567@",
-      "role": "student"
-    },
-    {
-      "id": "9bbcc0d5-a28e-467a-8cc6-7c0dad4f98c2",
-      "username": "Abanoub",
-      "email": "aa@gmail.com",
-      "password": "aa12345678@@wA",
+      "password": "Aa12345567@",
       "role": "student"
     }
   ],

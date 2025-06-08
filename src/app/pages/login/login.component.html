@@ -1,12 +1,12 @@
-<form>
+<form [formGroup]="loginForm">
   <label for="email">Email</label>
   <input
     name="email"
     type="text"
     id="email"
     class="form-control"
-    placeholder="Enter your email"
-    formControlName="email"
+    placeholder="Enter your username or email"
+    formControlName="identifier"
   />
 
   <label for="password">Password</label>

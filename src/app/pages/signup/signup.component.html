@@ -26,7 +26,9 @@
   <p class="text-danger">Email is required</p>
   } @if (getEmail().hasError('pattern')) {
   <p class="text-danger">Please enter a valid email</p>
-  } }
+  } } @if (doesEmailExist) {
+  <p class="text-danger">Email already exists. Please use a different one.</p>
+  }
 
   <label for="password">Password</label>
   <input
