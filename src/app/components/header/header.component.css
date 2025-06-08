@@ -36,3 +36,23 @@ nav a {
     top: 0;
   }
 }
+
+.nav-user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-user-info .nav-link {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav-user-info button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}

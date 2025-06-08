@@ -51,7 +51,8 @@ export class LoginComponent implements OnInit {
       alert('invaild login');
       return;
     }
-    this.authService.login(matchedUser);
+    this.authService.setCurrentUser(matchedUser);
+    console.log(this.authService.getCurrentUser());
     this.router.navigate(['/home']);
   }
 }

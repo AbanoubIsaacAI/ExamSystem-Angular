@@ -29,6 +29,7 @@
             >Home</a
           >
         </li>
+        @if (currentUser?.role==='student') {
         <li class="nav-item">
           <a
             class="nav-link"
@@ -47,6 +48,17 @@
             >Scores</a
           >
         </li>
+        } @else if (currentUser?.role==='admin'){
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/admindashboard']"
+            routerLinkActive="activeLink"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Admin Dashboard</a
+          >
+        </li>
+        }
         <li class="nav-item">
           <a
             class="nav-link"
@@ -57,7 +69,7 @@
           >
         </li>
       </ul>
-
+      @if(!currentUser){
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <a
@@ -80,6 +92,15 @@
           </a>
         </li>
       </ul>
+      }@else {
+      <div class="nav-user-info">
+        <p class="nav-link m-0">Welcome {{ currentUser.username }}</p>
+        <button class="nav-link btn btn-link" (click)="logout()">
+          <i class="bi bi-box-arrow-in-right me-1"></i>Log Out
+        </button>
+      </div>
+
+      }
     </div>
   </div>
 </nav>

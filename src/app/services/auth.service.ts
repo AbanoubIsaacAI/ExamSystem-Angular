@@ -6,33 +6,18 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(
-    this.getStoredUser()
-  );
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor() {}
-
-  login(user: User) {
+  setCurrentUser(user: User) {
     this.currentUserSubject.next(user);
-    localStorage.setItem('currentUser', JSON.stringify(user));
-  }
-
-  logout() {
-    this.currentUserSubject.next(null);
-    localStorage.removeItem('currentUser');
   }
 
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }
 
-  private getStoredUser(): User | null {
-    const userJson = localStorage.getItem('currentUser');
-    return userJson ? JSON.parse(userJson) : null;
-  }
-
-  isLoggedIn(): boolean {
-    return this.getCurrentUser() !== null;
+  logout() {
+    this.currentUserSubject.next(null);
   }
 }

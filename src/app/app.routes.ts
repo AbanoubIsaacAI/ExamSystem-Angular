@@ -6,6 +6,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ExamsComponent } from './pages/exams/exams.component';
 import { ExamsquestionsComponent } from './pages/examsquestions/examsquestions.component';
 import { ScoresComponent } from './pages/scores/scores.component';
+import { AdmindashboardComponent } from './pages/admindashboard/admindashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'exams', component: ExamsComponent },
   { path: 'exams/:id', component: ExamsquestionsComponent },
   { path: 'scores', component: ScoresComponent },
+  { path: 'admindashboard', component: AdmindashboardComponent },
   { path: '**', component: NotfoundComponent },
 ];
