@@ -1,0 +1,77 @@
+.content{
+    width: 80%;
+    height: 80vh;
+    margin: auto;
+}
+.content img{
+    width: 100%;
+    height: 100%;
+    animation: floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    } 
+}
+
+.title{
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    font-size: 35px;
+    text-align: center;
+}
+
+.inputBox {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #245d51;
+    border-radius: 4px;
+    background: transparent;
+    font-size: 16px;
+}
+
+.inputBox label {
+    position: absolute;
+    left: 12px;
+    top: 14px;
+    background: white;
+    border-radius: 6px;
+    padding: 0 10px;
+    font-size: 18px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: #245d51;
+}
+
+.inputBox input:focus+label,
+.inputBox input:not(:placeholder-shown)+label {
+    top: -10px;
+    left: 10px;
+    font-size: 13px;
+    color: #ff4e59;
+}
+
+.loginBtn{
+    background-color: #245d51;
+    cursor: pointer;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+}
+.loginBtn:hover{
+  background: #ff4e59;
+}

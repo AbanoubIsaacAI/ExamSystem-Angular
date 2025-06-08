@@ -1,4 +1,4 @@
-.exams-container {
+/* .exams-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
@@ -43,4 +43,83 @@
   background-color: #ff4e59;
   color: white;
   padding: 8px;
+} */
+
+
+/* ================================================= */
+.exams-container{
+
+}
+.top-section{
+  background-image: url("/page-title-bg.jpg");
+  height: 80vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: white;
+
+
+}
+.top-section .spanDiv{
+  border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #fbff4e;
+      background: rgb(0 255 220 / 52%);
+      cursor: pointer;
+}
+.card{
+  border: 1px solid rgb(36, 93, 81);
+  box-shadow: rgba(36, 93, 81, 0.3) 0px 7px 29px 0px;
+  transition: ease-in-out 0.2s;
+  width: 22%;
+  min-width: 300px;
+}
+.card:hover{
+  background: #2a7b9b;
+  background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 204, 83, 1) 100%);
+  border: none;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.btnTakeExam{
+  color: white;
+  width: fit-content;
+  display: block;
+  background-color: #245d51;
+}
+.btnTakeExam:hover{
+  background-color: #ff4e59;
+}
+
+@media (max-width: 992px) {
+  .card {
+    width: 47%;
+  }
+}
+
+@media (max-width: 576px) {
+  .card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-section {
+    height: 60vh;
+    padding: 2rem 1rem;
+    background-position: center top;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-section {
+    height: auto;
+    padding: 3rem 1rem;
+    background-size: cover;
+    background-position: center top;
+  }
 }

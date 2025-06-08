@@ -1,28 +1,26 @@
-<form [formGroup]="loginForm">
-  <label for="email">Email</label>
-  <input
-    name="email"
-    type="text"
-    id="email"
-    class="form-control"
-    placeholder="Enter your username or email"
-    formControlName="identifier"
-  />
+<div class="container">
+  <div class="content row d-flex justify-content-center align-items-center">
 
-  <label for="password">Password</label>
-  <input
-    name="password"
-    type="password"
-    id="password"
-    class="form-control"
-    placeholder="Enter your password"
-    formControlName="password"
-  />
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <h3 class="title">Log In Your Account</h3>
+      <form [formGroup]="loginForm">
 
-  <input
-    type="submit"
-    value="Log in"
-    class="btn btn-primary mt-2"
-    (click)="login()"
-  />
-</form>
+        <div class="inputBox">
+          <input type="text" id="email" name="email" placeholder=" " class="form-control" formControlName="identifier" />
+          <label for="email">Enter Your Email</label>  
+        </div>
+      
+        <div class="inputBox">
+          <input name="password" type="password" id="password" class="form-control" placeholder=" " formControlName="password" />
+          <label for="password">Enter Your Password</label>
+        </div>
+
+        <input type="submit" value="Log in" class="btn loginBtn" (click)="login()" />
+        </form>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <img src="./login.jpg"  class="floating-img"/>
+    </div>
+  </div>
+</div>
