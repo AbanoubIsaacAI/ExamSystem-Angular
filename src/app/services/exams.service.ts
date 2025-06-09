@@ -9,11 +9,16 @@ import { Exam } from '../models/exam.model';
 export class ExamsService {
   constructor(private http: HttpClient) {}
   baseurl: string = 'http://localhost:8000/exams';
+
   getAllexams(): Observable<Exam[]> {
     return this.http.get<Exam[]>(this.baseurl);
   }
 
   getExamById(examId: string): Observable<Exam> {
     return this.http.get<Exam>(`${this.baseurl}/${examId}`);
+  }
+
+  deleteExam(examId: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseurl}/${examId}`);
   }
 }

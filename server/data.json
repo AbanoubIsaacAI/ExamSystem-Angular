@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "Abanoub",
       "email": "Abanoub@gmail.com",
       "password": "Admin@123",
@@ -155,9 +155,249 @@
           "points": 10
         }
       ]
+    },
+    {
+      "id": "exam-002",
+      "title": "Computer Science Fundamentals",
+      "description": "A test covering basics of computer science, programming, and data structures.",
+      "duration": 1.5,
+      "passingScore": 75,
+      "createdAt": "2024-04-20T00:00:00.000Z",
+      "questions": [
+        {
+          "id": "q-1",
+          "examId": "exam-002",
+          "questionText": "What does CPU stand for?",
+          "options": [
+            "Central Performance Unit",
+            "Central Processing Unit",
+            "Computer Personal Unit",
+            "Central Program Unit"
+          ],
+          "correctAnswerIndex": "1",
+          "points": 10
+        },
+        {
+          "id": "q-2",
+          "examId": "exam-002",
+          "questionText": "Which data structure uses FIFO?",
+          "options": [
+            "Stack",
+            "Queue",
+            "Tree",
+            "Graph"
+          ],
+          "correctAnswerIndex": "1",
+          "points": 10
+        },
+        {
+          "id": "q-3",
+          "examId": "exam-002",
+          "questionText": "What symbol is used to define a class in Python?",
+          "options": [
+            "def",
+            "class",
+            "function",
+            "struct"
+          ],
+          "correctAnswerIndex": "1",
+          "points": 10
+        },
+        {
+          "id": "q-4",
+          "examId": "exam-002",
+          "questionText": "What is Big O notation used for?",
+          "options": [
+            "Measuring memory size",
+            "Describing code errors",
+            "Describing algorithm complexity",
+            "Naming variables"
+          ],
+          "correctAnswerIndex": "2",
+          "points": 10
+        },
+        {
+          "id": "q-5",
+          "examId": "exam-002",
+          "questionText": "Which of the following is not a programming language?",
+          "options": [
+            "Java",
+            "Python",
+            "HTML",
+            "C++"
+          ],
+          "correctAnswerIndex": "2",
+          "points": 10
+        },
+        {
+          "id": "q-6",
+          "examId": "exam-002",
+          "questionText": "Which type of loop checks the condition before execution?",
+          "options": [
+            "for",
+            "while",
+            "do-while",
+            "foreach"
+          ],
+          "correctAnswerIndex": "1",
+          "points": 10
+        },
+        {
+          "id": "q-7",
+          "examId": "exam-002",
+          "questionText": "What is the base of binary numbers?",
+          "options": [
+            "2",
+            "8",
+            "10",
+            "16"
+          ],
+          "correctAnswerIndex": "0",
+          "points": 10
+        },
+        {
+          "id": "q-8",
+          "examId": "exam-002",
+          "questionText": "Which HTML tag is used to create a hyperlink?",
+          "options": [
+            "<p>",
+            "<link>",
+            "<a>",
+            "<h1>"
+          ],
+          "correctAnswerIndex": "2",
+          "points": 10
+        },
+        {
+          "id": "q-9",
+          "examId": "exam-002",
+          "questionText": "What is the full form of API?",
+          "options": [
+            "Advanced Programming Interface",
+            "Application Programming Interface",
+            "Automated Program Interaction",
+            "Applied Program Input"
+          ],
+          "correctAnswerIndex": "1",
+          "points": 10
+        },
+        {
+          "id": "q-10",
+          "examId": "exam-002",
+          "questionText": "Which one is used to store multiple values in one variable in JavaScript?",
+          "options": [
+            "Object",
+            "String",
+            "Array",
+            "Number"
+          ],
+          "correctAnswerIndex": "2",
+          "points": 10
+        }
+      ]
+    },
+    {
+      "id": "exam-003",
+      "title": "Basic Programming Languages",
+      "description": "Tests fundamental math operations and logic.",
+      "duration": 0.5,
+      "passingScore": 60,
+      "createdAt": "2025-01-10T00:00:00.000Z",
+      "questions": [
+        {
+          "id": "q-1",
+          "examId": "exam-004",
+          "questionText": "What is 12 × 8?",
+          "options": [
+            "96",
+            "84",
+            "108",
+            "88"
+          ],
+          "correctAnswerIndex": "0",
+          "points": 10
+        },
+        {
+          "id": "q-2",
+          "examId": "exam-004",
+          "questionText": "What is the value of π (pi) approximately?",
+          "options": [
+            "2.14",
+            "3.14",
+            "4.13",
+            "3.41"
+          ],
+          "correctAnswerIndex": "1",
+          "points": 10
+        },
+        {
+          "id": "q-3",
+          "examId": "exam-004",
+          "questionText": "Solve: 15 - (3 + 2)",
+          "options": [
+            "10",
+            "9",
+            "8",
+            "7"
+          ],
+          "correctAnswerIndex": "0",
+          "points": 10
+        }
+      ]
+    },
+    {
+      "id": "exam-004",
+      "title": "Basic Mathematics Test",
+      "description": "Tests fundamental math operations and logic.",
+      "duration": 0.5,
+      "passingScore": 60,
+      "createdAt": "2025-01-10T00:00:00.000Z",
+      "questions": [
+        {
+          "id": "q-1",
+          "examId": "exam-004",
+          "questionText": "What is 12 × 8?",
+          "options": [
+            "96",
+            "84",
+            "108",
+            "88"
+          ],
+          "correctAnswerIndex": "0",
+          "points": 10
+        },
+        {
+          "id": "q-2",
+          "examId": "exam-004",
+          "questionText": "What is the value of π (pi) approximately?",
+          "options": [
+            "2.14",
+            "3.14",
+            "4.13",
+            "3.41"
+          ],
+          "correctAnswerIndex": "1",
+          "points": 10
+        },
+        {
+          "id": "q-3",
+          "examId": "exam-004",
+          "questionText": "Solve: 15 - (3 + 2)",
+          "options": [
+            "10",
+            "9",
+            "8",
+            "7"
+          ],
+          "correctAnswerIndex": "0",
+          "points": 10
+        }
+      ]
     }
   ],
   "results": [
-    {}
+    {
+      "id": "c8e1"
+    }
   ]
 }

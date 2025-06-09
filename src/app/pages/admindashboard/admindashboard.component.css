@@ -1,0 +1,32 @@
+.title-section{
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #245d51;
+    background: rgba(36, 93, 81, 0.1);
+    margin: 50px 0px;
+}
+input{
+    padding: 5px 10px;
+    border-radius: 6px;
+    height: 50%;
+    margin: auto 0px;
+    border: 3px solid #245d51;
+}
+input:focus{
+    border: 3px solid #245d51;
+    outline: none;
+}
+.addExamBtn{
+    border: 3px solid #245d51;
+    color: #245d51;
+    background: rgba(36, 93, 81, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+.addExamBtn:hover{
+    background-color: #245d51;
+    color: white;
+    padding: 10px 30px;
+}
