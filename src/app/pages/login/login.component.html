@@ -1,26 +1,43 @@
 <div class="container">
   <div class="content row d-flex justify-content-center align-items-center">
-
     <div class="col-sm-12 col-md-6 col-lg-6">
       <h3 class="title">Log In Your Account</h3>
       <form [formGroup]="loginForm">
+        <div class="inputBox">
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder=" "
+            class="form-control"
+            formControlName="identifier"
+          />
+          <label for="email">Enter Your Email</label>
+        </div>
 
         <div class="inputBox">
-          <input type="text" id="email" name="email" placeholder=" " class="form-control" formControlName="identifier" />
-          <label for="email">Enter Your Email</label>  
-        </div>
-      
-        <div class="inputBox">
-          <input name="password" type="password" id="password" class="form-control" placeholder=" " formControlName="password" />
+          <input
+            name="password"
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder=" "
+            formControlName="password"
+          />
           <label for="password">Enter Your Password</label>
         </div>
 
-        <input type="submit" value="Log in" class="btn loginBtn" (click)="login()" />
-        </form>
+        <input
+          type="submit"
+          value="Log in"
+          class="btn loginBtn"
+          (click)="login()"
+        />
+      </form>
     </div>
 
     <div class="col-sm-12 col-md-6 col-lg-6">
-      <img src="./login.jpg"  class="floating-img"/>
+      <img src="./login.jpg" class="floating-img" alt="login" />
     </div>
   </div>
 </div>

@@ -1,9 +1,11 @@
+import { Result } from './results.model';
+
 export interface User {
   id: string;
   username: string;
   email: string;
   password: string;
-  scores?: [{ examID: string; examtitle: string; score: number }];
+  result?: Result[];
   role: 'student' | 'admin';
   token?: string;
 }

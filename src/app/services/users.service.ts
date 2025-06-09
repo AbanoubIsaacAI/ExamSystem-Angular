@@ -23,4 +23,21 @@ export class UsersService {
   AddNewUser(user: User): Observable<User> {
     return this.http.post<User>(this.baseurl, user, this.httpOptions);
   }
+  updateUser(userId: string, updatedUser: User): Observable<User> {
+    return this.http.put<User>(
+      `${this.baseurl}/${userId}`,
+      updatedUser,
+      this.httpOptions
+    );
+  }
+  updateUserPartial(
+    userId: string,
+    partialData: Partial<User>
+  ): Observable<User> {
+    return this.http.patch<User>(
+      `${this.baseurl}/${userId}`,
+      partialData,
+      this.httpOptions
+    );
+  }
 }
