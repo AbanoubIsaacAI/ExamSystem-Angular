@@ -1,0 +1,49 @@
+<form [formGroup]="examForm">
+  <label for="title">Title:</label>
+  <input formControlName="title" id="title" />
+
+  <label for="description">Description:</label>
+  <textarea formControlName="description" id="description"></textarea>
+
+  <label for="duration">Duration (minutes):</label>
+  <input type="number" formControlName="duration" id="duration" />
+
+  <label for="passingScore">Passing Score:</label>
+  <input type="number" formControlName="passingScore" id="passingScore" />
+
+  <label for="questionsNumber">Number of Questions:</label>
+  <input type="number" formControlName="questionsNumber" id="questionsNumber" />
+  <button type="button" (click)="addQuestion()">Add New Question</button>
+
+  <div formArrayName="questions">
+    @for (q of questionsFormArray.controls; track $index; let i = $index) {
+    <div [formGroupName]="i" class="question-group">
+      <label for="questionText-{{ i }}">Question Text:</label>
+      <input formControlName="questionText" id="questionText-{{ i }}" />
+
+      <div formArrayName="options">
+        @for (optCtrl of getOptionsFormArray(i).controls ?? []; track $index;
+        let j = $index) {
+        <div>
+          <input [formControlName]="j" placeholder="Option {{ j + 1 }}" />
+        </div>
+        }
+      </div>
+
+      <label for="correctAnswerIndex-{{ i }}">Correct Answer Index:</label>
+      <input
+        type="number"
+        formControlName="correctAnswerIndex"
+        id="correctAnswerIndex-{{ i }}"
+      />
+
+      <label for="points-{{ i }}">Points:</label>
+      <input type="number" formControlName="points" id="points-{{ i }}" />
+
+      <button type="button" (click)="removeQuestion(i)">Remove</button>
+    </div>
+    }
+  </div>
+
+  <button type="submit" (click)="submitExam()">Update Exam</button>
+</form>

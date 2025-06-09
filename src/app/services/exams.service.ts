@@ -26,4 +26,10 @@ export class ExamsService {
   deleteExam(examId: string): Observable<void> {
     return this.http.delete<void>(`${this.baseurl}/${examId}`);
   }
+  updateExam(updatedExam: Exam): Observable<Exam> {
+    return this.http.put<Exam>(
+      `${this.baseurl}/${updatedExam.id}`,
+      updatedExam
+    );
+  }
 }

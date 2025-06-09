@@ -15,4 +15,7 @@ export class AdmindashboardComponent {
   addexam() {
     this.router.navigate(['/addexam']);
   }
+  editexam() {
+    this.router.navigate(['/editexam']);
+  }
 }

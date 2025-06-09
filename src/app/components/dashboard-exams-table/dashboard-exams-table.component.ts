@@ -1,6 +1,13 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { ExamsService } from '../../services/exams.service';
 import { Exam } from '../../models/exam.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-exams-table',
@@ -9,17 +16,14 @@ import { Exam } from '../../models/exam.model';
   styleUrl: './dashboard-exams-table.component.css',
 })
 export class DashboardExamsTableComponent implements OnInit, OnChanges {
-  // examsList: any[] = [];
   allExams: Exam[] = [];
   filteredExams: Exam[] = [];
   @Input() filter: string = '';
 
-  constructor(private examsService: ExamsService) {}
+  constructor(private examsService: ExamsService, private router: Router) {}
 
-  // display all exams
   ngOnInit(): void {
     this.examsService.getAllexams().subscribe((data) => {
-      // this.examsList = data;
       this.allExams = data;
       this.applyFilter();
     });
@@ -30,7 +34,6 @@ export class DashboardExamsTableComponent implements OnInit, OnChanges {
       this.applyFilter();
     }
   }
-  // filter by exam title
   applyFilter(): void {
     const lowerFilter = this.filter.toLowerCase();
     this.filteredExams = this.allExams.filter((exam) =>
@@ -41,7 +44,10 @@ export class DashboardExamsTableComponent implements OnInit, OnChanges {
   deleteExam(id: string): void {
     this.examsService.deleteExam(id).subscribe(() => {
       this.allExams = this.allExams.filter((exam) => exam.id !== id);
-      this.applyFilter(); 
+      this.applyFilter();
     });
+  }
+  editexam(id: string) {
+    this.router.navigate([`/editexam/${id}`]);
   }
 }

@@ -75,11 +75,8 @@
       "description": "A test covering basic topics in science, history, and technology.",
       "duration": 1,
       "passingScore": 70,
-      "createdAt": "2023-11-15T00:00:00.000Z",
       "questions": [
         {
-          "id": "q-1",
-          "examId": "exam-001",
           "questionText": "What is the capital of France?",
           "options": [
             "Berlin",
@@ -91,8 +88,6 @@
           "points": 10
         },
         {
-          "id": "q-2",
-          "examId": "exam-001",
           "questionText": "Which planet is known as the Red Planet?",
           "options": [
             "Venus",
@@ -104,8 +99,6 @@
           "points": 10
         },
         {
-          "id": "q-3",
-          "examId": "exam-001",
           "questionText": "What is the largest mammal on Earth?",
           "options": [
             "Elephant",
@@ -117,8 +110,6 @@
           "points": 10
         },
         {
-          "id": "q-4",
-          "examId": "exam-001",
           "questionText": "Who wrote 'To Kill a Mockingbird'?",
           "options": [
             "J.K. Rowling",
@@ -130,8 +121,6 @@
           "points": 10
         },
         {
-          "id": "q-5",
-          "examId": "exam-001",
           "questionText": "What is the chemical symbol for gold?",
           "options": [
             "Go",
@@ -143,8 +132,6 @@
           "points": 10
         },
         {
-          "id": "q-6",
-          "examId": "exam-001",
           "questionText": "Which year did World War II end?",
           "options": [
             "1943",
@@ -156,8 +143,6 @@
           "points": 10
         },
         {
-          "id": "q-7",
-          "examId": "exam-001",
           "questionText": "What is the main component of the Sun?",
           "options": [
             "Liquid Lava",
@@ -169,8 +154,6 @@
           "points": 10
         },
         {
-          "id": "q-8",
-          "examId": "exam-001",
           "questionText": "Which language is the most widely spoken worldwide?",
           "options": [
             "English",
@@ -182,8 +165,6 @@
           "points": 10
         },
         {
-          "id": "q-9",
-          "examId": "exam-001",
           "questionText": "What is the square root of 64?",
           "options": [
             "4",
@@ -195,8 +176,6 @@
           "points": 10
         },
         {
-          "id": "q-10",
-          "examId": "exam-001",
           "questionText": "Which device converts mechanical energy into electrical energy?",
           "options": [
             "Motor",
@@ -207,7 +186,8 @@
           "correctAnswerIndex": "1",
           "points": 10
         }
-      ]
+      ],
+      "createdAt": "2023-11-15T00:00:00.000Z"
     },
     {
       "id": "exam-002",

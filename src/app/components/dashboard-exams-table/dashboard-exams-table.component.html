@@ -1,29 +1,33 @@
 <div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">id</th>
-                <th scope="col">Exam Title</th>
-                <th scope="col">Exam Duration</th>
-                <th scope="col">Creation Date</th>
-                <th scope="col">Questions Number</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (exam of filteredExams; track exam.id) {
-                <tr class="trHover">
-                    <th scope="row">{{exam.id}}</th>
-                    <td>{{exam.title}}</td>
-                    <td>{{exam.duration}} hr</td>
-                    <td>{{exam.createdAt}}</td>
-                    <td>{{exam.questions.length}}</td>
-                    <td>
-                        <button class="btn btn-success me-2">Edit</button>
-                        <button class="btn btn-danger"  (click)="deleteExam(exam.id)">delete</button>
-                    </td>
-                </tr>
-             }
-        </tbody>
-        </table>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Exam Title</th>
+        <th scope="col">Exam Duration</th>
+        <th scope="col">Creation Date</th>
+        <th scope="col">Questions Number</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (exam of filteredExams; track exam.id) {
+      <tr class="trHover">
+        <th scope="row">{{ exam.id }}</th>
+        <td>{{ exam.title }}</td>
+        <td>{{ exam.duration }} hr</td>
+        <td>{{ exam.createdAt }}</td>
+        <td>{{ exam.questions.length }}</td>
+        <td>
+          <button class="btn btn-success me-2" (click)="editexam(exam.id)">
+            Edit
+          </button>
+          <button class="btn btn-danger" (click)="deleteExam(exam.id)">
+            delete
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 </div>
