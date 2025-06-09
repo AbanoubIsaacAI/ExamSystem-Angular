@@ -1,9 +1,14 @@
+import { UsersService } from './../../services/users.service';
+import { AuthService } from './../../services/auth.service';
 import { Question } from '../../models/question.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExamsService } from '../../services/exams.service';
 import { Exam } from '../../models/exam.model';
 import { ExamTimerComponent } from '../../components/exam-timer/exam-timer.component';
+import { User } from '../../models/user.model';
+import { Answers } from '../../models/answers.model';
+import { Result } from '../../models/results.model';
 
 @Component({
   selector: 'app-examsquestions',
@@ -26,13 +31,19 @@ export class ExamsquestionsComponent implements OnInit {
   constructor(
     private examsService: ExamsService,
     private activateRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private AuthService: AuthService,
+    private UsersService: UsersService
   ) {}
 
   ngOnInit(): void {
     this.examId = this.activateRoute.snapshot.paramMap.get('id') || '';
     this.loadExamData();
+    this.AuthService.currentUser$.subscribe((user) => {
+      this.currentUser = user;
+    });
   }
+  currentUser: User | null = null;
 
   private loadExamData(): void {
     this.examsService.getExamById(this.examId).subscribe({
@@ -73,6 +84,35 @@ export class ExamsquestionsComponent implements OnInit {
     this.submitAnswers();
   };
 
+  updateUserProfile() {
+    if (!this.currentUser) return;
+
+    const newResult: Result = {
+      studentID: this.currentUser.id,
+      examID: this.examId,
+      examTitle: this.currentExam.title,
+      score: this.score,
+      total: this.totalDegree,
+      passed: this.score >= this.currentExam.passingScore,
+      answers: this.getAnswersForSubmission(),
+      submittedAt: new Date(),
+    };
+
+    const updatedUser: User = {
+      ...this.currentUser,
+      result: [...(this.currentUser.result || []), newResult],
+    };
+
+    this.UsersService.updateUser(this.currentUser.id, updatedUser).subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+      error: (err) => {
+        console.error('Failed to update user with result:', err);
+      },
+    });
+  }
+
   submitAnswers(event?: Event): void {
     event?.preventDefault();
 
@@ -84,7 +124,7 @@ export class ExamsquestionsComponent implements OnInit {
       this.calculateScore(answers);
 
       console.log(`Score: ${this.score}/${this.totalDegree}`);
-
+      this.updateUserProfile();
       this.router.navigate(['/scores'], {
         state: {
           score: this.score,
@@ -107,16 +147,19 @@ export class ExamsquestionsComponent implements OnInit {
     );
   }
 
-  private getAnswersForSubmission() {
+  private getAnswersForSubmission(): Answers[] {
     return Object.keys(this.selectedAnswers).map((questionId) => ({
       questionId,
-      answerIndex: this.selectedAnswers[questionId],
+      selectedIndex: this.selectedAnswers[questionId],
     }));
   }
 
-  private calculateScore(answers: any[]): void {
+  private calculateScore(answers: Answers[]): void {
     answers.map((answer, i) => {
-      if (answer.answerIndex == this.questions[i].correctAnswerIndex) {
+      if (
+        Number(answer.selectedIndex) ===
+        Number(this.questions[i].correctAnswerIndex)
+      ) {
         this.score += this.questions[i].points;
       }
     });
