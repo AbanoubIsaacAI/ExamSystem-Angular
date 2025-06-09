@@ -1,0 +1,42 @@
+<form action="" [formGroup]="examForm">
+  <label for="title">Title:</label>
+  <input formControlName="title" id="title" />
+
+  <label for="description">Description:</label>
+  <textarea formControlName="description" id="description"></textarea>
+
+  <label for="duration">Duration (minutes):</label>
+  <input type="number" formControlName="duration" id="duration" />
+
+  <label for="passingScore">Passing Score:</label>
+  <input type="number" formControlName="passingScore" id="passingScore" />
+  <label for="questionsNumber">Number of questions:</label>
+  <input type="number" formControlName="questionsNumber" id="questionsNumber" />
+  @for ( q of questionsFormArray.controls; track $index;let i=$index) {
+  <div formArrayName="questions" class="question-group">
+    <div [formGroupName]="i">
+      <label for="qtext">Question Text:</label>
+      <input formControlName="text" id="qtext" />
+      <div formArrayName="options">
+        @for (optCtrl of getOptionsFormArray(i).controls; track $index; let j =
+        $index) {
+        <div>
+          <input [formControlName]="j" placeholder="Option {{ j + 1 }}" />
+        </div>
+        }
+      </div>
+      <label for="correctAnswerIndex">Correct Answer Index:</label>
+      <input
+        type="number"
+        formControlName="correctAnswerIndex"
+        id="correctAnswerIndex"
+      />
+
+      <label for="points">Points:</label>
+      <input type="number" formControlName="points" id="points" />
+      <button type="button" (click)="removeQuestion(i)">Remove</button>
+    </div>
+  </div>
+  }
+  <button type="submit" (click)="submitExam()">Submit Exam</button>
+</form>

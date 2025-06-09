@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Exam } from '../models/exam.model';
@@ -18,6 +18,11 @@ export class ExamsService {
     return this.http.get<Exam>(`${this.baseurl}/${examId}`);
   }
 
+  addExam(exam: Exam): Observable<Exam> {
+    return this.http.post<Exam>(this.baseurl, exam, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
   deleteExam(examId: string): Observable<void> {
     return this.http.delete<void>(`${this.baseurl}/${examId}`);
   }
