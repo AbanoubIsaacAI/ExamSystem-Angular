@@ -1,23 +1,4 @@
 <div class="exams-container">
-  <!-- @for (exam of examsList; track exam.id) {
-  <div class="exam-card">
-    <img
-      class="exam-image"
-      [src]="'assets/default-exam-image.jpg'"
-      alt="{{ exam.title }}"
-    />
-    <div class="card-body">
-      <h3 class="exam-title">{{ exam.title }}</h3>
-      <p class="exam-date">
-        Created: {{ exam.createdAt | date : "mediumDate" }}
-      </p>
-      <button class="btn btn-bg" [routerLink]="['/exams', exam.id]">
-        Take the exam
-      </button>
-    </div>
-  </div>
-  } -->
-
   <div class="top-section d-flex">
     <div class="d-flex flex-column justify-content-center  align-items-start  my-auto px-5"  style="width: fit-content;" >
       <h1 class="mb-4" style="text-transform: uppercase;">Your Exams</h1>

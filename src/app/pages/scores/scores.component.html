@@ -1,20 +1,40 @@
-@if (currentUser?.result?.length) {
-<div class="results-container">
-  @for (res of results; track $index) {
+<div class="score-container">
 
-  <div class="result-card">
-    <h3>Exam ID: {{ res.examID }}</h3>
-    <p><strong>Score:</strong> {{ res.score }} / {{ res.total }}</p>
-    <p>
-      <strong>Status:</strong>
-      <span [class.passed]="res.passed" [class.failed]="!res.passed">
-        {{ res.passed ? "Passed" : "Failed" }}
-      </span>
-    </p>
-    <p><strong>Submitted:</strong> {{ res.submittedAt | date : "medium" }}</p>
+  <div class="top-section d-flex">
+    <div class="d-flex flex-column justify-content-center  align-items-start  my-auto px-5" style="width: fit-content;">
+      <h1 class="mb-4" style="text-transform: uppercase;">Your Scores</h1>
+      <p class="mb-4" style="letter-spacing: 2px; width: 80%;">You can find all your scores here, and you can review it
+        achieve more success !</p>
+      <div class="spanDiv">
+        <span>Keep Going 💥</span>
+      </div>
+    </div>
   </div>
-  }
-</div>
-} @else {
-<p>No exam results found.</p>
+  @if (currentUser?.result?.length) {
+ <div class="content row gap-5   d-flex flex-wrap justify-content-center">
+  @for (res of results; track $index) {
+  
+  <div class="d-flex flex-sm-column flex-md-row flex-lg-row  cardBox">
+    <div class="imgBox  d-flex align-content-center justify-content-center">
+      <img src="/iconScore.svg" />
+    </div>
+    <div class="result-card  d-flex flex-column mb-4">
+      <h3 class="mb-3" >Exam ID : {{ res.examID }}</h3>
+      <p><strong>Score :</strong> {{ res.score }} / {{ res.total }}</p>
+      <p><strong>Submitted : </strong> {{ res.submittedAt | date : "medium" }}</p>
+      <p class="status mt-2" >
+        <strong>Status : </strong>
+        <span [class.passed]="res.passed" [class.failed]="!res.passed">
+          {{ res.passed ? "Passed" : "Failed" }}
+        </span>
+      </p>
+    </div> 
+  </div>
+} 
+
+ </div>
+}@else {
+<button class="btn btn-danger"  >No exam results found.</button> 
 }
+
+</div>
