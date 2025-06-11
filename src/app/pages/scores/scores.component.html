@@ -1,40 +1,72 @@
 <div class="score-container">
-
   <div class="top-section d-flex">
-    <div class="d-flex flex-column justify-content-center  align-items-start  my-auto px-5" style="width: fit-content;">
-      <h1 class="mb-4" style="text-transform: uppercase;">Your Scores</h1>
-      <p class="mb-4" style="letter-spacing: 2px; width: 80%;">You can find all your scores here, and you can review it
-        achieve more success !</p>
+    <div
+      class="d-flex flex-column justify-content-center align-items-start my-auto px-5"
+      style="width: fit-content"
+    >
+      <h1 class="mb-4" style="text-transform: uppercase">
+        @if (currentUser?.role === 'admin') { All Students' Scores } @else {
+        Your Scores }
+      </h1>
+      <p class="mb-4" style="letter-spacing: 2px; width: 80%">
+        @if (currentUser?.role === 'admin') { Review all students' exam results
+        and track their progress. } @else { You can find all your scores here,
+        and you can review them to achieve more success! }
+      </p>
       <div class="spanDiv">
         <span>Keep Going 💥</span>
       </div>
     </div>
   </div>
-  @if (currentUser?.result?.length) {
- <div class="content row gap-5   d-flex flex-wrap justify-content-center">
-  @for (res of results; track $index) {
-  
-  <div class="d-flex flex-sm-column flex-md-row flex-lg-row  cardBox">
-    <div class="imgBox  d-flex align-content-center justify-content-center">
-      <img src="/iconScore.svg" />
+
+  @if (isLoading) {
+  <div class="d-flex justify-content-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
-    <div class="result-card  d-flex flex-column mb-4">
-      <h3 class="mb-3" >Exam ID : {{ res.examID }}</h3>
-      <p><strong>Score :</strong> {{ res.score }} / {{ res.total }}</p>
-      <p><strong>Submitted : </strong> {{ res.submittedAt | date : "medium" }}</p>
-      <p class="status mt-2" >
-        <strong>Status : </strong>
-        <span [class.passed]="res.passed" [class.failed]="!res.passed">
-          {{ res.passed ? "Passed" : "Failed" }}
-        </span>
-      </p>
-    </div> 
   </div>
-} 
-
- </div>
-}@else {
-<button class="btn btn-danger"  >No exam results found.</button> 
-}
-
+  } @if (error && !isLoading) {
+  <div class="alert alert-danger mx-5" role="alert">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-3" (click)="loadData()">
+      Retry
+    </button>
+  </div>
+  } @if (!isLoading && !error) { @if (results.length) {
+  <div class="content row gap-5 d-flex flex-wrap justify-content-center">
+    @for (res of results; track $index) {
+    <div class="d-flex flex-sm-column flex-md-row flex-lg-row cardBox">
+      <div class="imgBox d-flex align-content-center justify-content-center">
+        <img src="/iconScore.svg" alt="score" />
+      </div>
+      <div class="result-card d-flex flex-column mb-4">
+        <h3 class="mb-3">{{ res.examTitle }}</h3>
+        <p><strong>Score :</strong> {{ res.score }} / {{ res.total }}</p>
+        <p>
+          <strong>Submitted : </strong> {{ res.submittedAt | date : "medium" }}
+        </p>
+        <p class="status mt-2">
+          <strong>Status : </strong>
+          <span [class.passed]="res.passed" [class.failed]="!res.passed">
+            {{ res.passed ? "Passed" : "Failed" }}
+          </span>
+        </p>
+        @if (currentUser?.role === 'admin' && res.userId) {
+        <p class="student-info mt-2">
+          <strong>Student: </strong> {{ getStudentName(res.userId) }}
+        </p>
+        }
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="d-flex justify-content-center my-5">
+    <div class="alert alert-info" role="alert">
+      No exam results found. @if (currentUser?.role === 'student') {
+      <a routerLink="/exams" class="alert-link ms-2">Take an exam</a>
+      }
+    </div>
+  </div>
+  } }
 </div>

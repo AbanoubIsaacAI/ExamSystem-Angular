@@ -65,7 +65,7 @@ export class AddexamComponent implements OnInit {
 
     this.questionsFormArray.push(
       new FormGroup({
-        text: new FormControl('', Validators.required),
+        questionText: new FormControl('', Validators.required),
         options: optionsArray,
         correctAnswerIndex: new FormControl(0, Validators.required),
         points: new FormControl(10, Validators.required),

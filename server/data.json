@@ -426,6 +426,27 @@
           "points": 10
         }
       ]
+    },
+    {
+      "id": "8996a388-c987-4894-8562-9cfcf4540779",
+      "title": "New Exam",
+      "description": "",
+      "duration": 1,
+      "passingScore": 10,
+      "questions": [
+        {
+          "questionText": "Q1",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "correctAnswerIndex": 0,
+          "points": 10
+        }
+      ],
+      "createdAt": "2025-06-11T13:10:17.988Z"
     }
   ],
   "results": [

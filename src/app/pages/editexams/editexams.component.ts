@@ -159,7 +159,6 @@ export class EditexamsComponent implements OnInit {
         },
       });
     } else {
-      console.warn('Form is invalid');
       this.examForm.markAllAsTouched();
     }
   }

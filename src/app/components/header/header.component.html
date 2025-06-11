@@ -39,15 +39,7 @@
             >Exams</a
           >
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['/scores']"
-            routerLinkActive="activeLink"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >Scores</a
-          >
-        </li>
+
         } @else if (currentUser?.role==='admin'){
         <li class="nav-item">
           <a
@@ -56,6 +48,16 @@
             routerLinkActive="activeLink"
             [routerLinkActiveOptions]="{ exact: true }"
             >Admin Dashboard</a
+          >
+        </li>
+        }@if(currentUser){
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/scores']"
+            routerLinkActive="activeLink"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Scores</a
           >
         </li>
         }
