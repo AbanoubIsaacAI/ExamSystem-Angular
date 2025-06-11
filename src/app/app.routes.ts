@@ -10,6 +10,7 @@ import { AdmindashboardComponent } from './pages/admindashboard/admindashboard.c
 import { AdminGuard } from './guards/admin.guard';
 import { AddexamComponent } from './pages/addexam/addexam.component';
 import { EditexamsComponent } from './pages/editexams/editexams.component';
+import { AboutComponent } from './pages/about/about.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'addexam', component: AddexamComponent },
   { path: 'editexam/:id', component: EditexamsComponent },
   { path: 'scores', component: ScoresComponent },
+  { path: 'about', component: AboutComponent },
   {
     path: 'admindashboard',
     component: AdmindashboardComponent,

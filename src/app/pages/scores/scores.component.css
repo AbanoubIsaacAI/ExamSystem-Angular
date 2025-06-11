@@ -33,7 +33,7 @@
   border-radius: 10px;
   transition: ease-in-out 0.2s;
   width: 30%;
-  min-width: 300px;
+  /* min-width: 300px; */
   position: relative;
   background-color: white;
 }
@@ -44,6 +44,9 @@
   border-radius: 50%;
   background: rgba(36, 93, 81, 0.1);
   margin: auto 20px auto 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cardBox img {
@@ -79,7 +82,7 @@
 
 .status {
   position: absolute;
-  bottom: 20px;
+  bottom: 0px;
   right: 20px;
 }
 

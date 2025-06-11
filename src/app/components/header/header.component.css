@@ -3,7 +3,7 @@
 }
 
 .nav-color {
-  background-color: #f8faf9;
+  background-color: #fff;
   color: hsl(0, 0%, 31%);
 }
 
@@ -55,4 +55,26 @@ nav a {
   border: none;
   cursor: pointer;
   color: inherit;
+}
+
+.logoutBtn,.signupBtn, .loginBtn{
+  border-radius: 6px;
+  outline: none;
+  display: inline-block;
+  padding: 15px 30px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+}
+.logoutBtn {
+  color: #ffffff !important;
+  background: #ff4e59 !important;
+}
+.signupBtn{
+  color: #ffffff !important;
+  background: #367a6c;
+}
+.loginBtn {
+  color: #367a6c !important;
+  border: 3px solid #367a6c;
 }
