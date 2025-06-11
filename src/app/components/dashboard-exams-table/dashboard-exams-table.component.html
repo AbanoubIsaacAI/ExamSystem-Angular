@@ -15,7 +15,11 @@
       <tr class="trHover">
         <th scope="row">{{ exam.id }}</th>
         <td>{{ exam.title }}</td>
-        <td>{{ exam.duration }} hr</td>
+        @if( exam.duration>1){
+        <td>{{ exam.duration }} mins</td>
+        }@else {
+        <td>{{ exam.duration }} min</td>
+        }
         <td>{{ exam.createdAt }}</td>
         <td>{{ exam.questions.length }}</td>
         <td>

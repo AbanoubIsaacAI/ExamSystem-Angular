@@ -64,7 +64,7 @@
         <li class="nav-item">
           <a
             class="nav-link"
-            href="/about"
+            [routerLink]="['/about']"
             routerLinkActive="activeLink"
             [routerLinkActiveOptions]="{ exact: true }"
             >About</a
@@ -83,7 +83,7 @@
             <i class="bi bi-box-arrow-in-right me-1"></i>Log In
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
           <a
             class="btn signupBtn ms-2"
             [routerLink]="['/signup']"
