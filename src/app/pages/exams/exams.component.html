@@ -1,56 +1,73 @@
 <div class="exams-container">
   <div class="top-section d-flex">
-    <div class="d-flex flex-column justify-content-center  align-items-start  my-auto px-5"  style="width: fit-content;" >
-      <h1 class="mb-4" style="text-transform: uppercase;">Your Exams</h1>
-      <p class="mb-4" style="letter-spacing: 2px; width: 80%;" >You can find all your exams here, and you can take it to achieve more success !</p>
+    <div
+      class="d-flex flex-column justify-content-center align-items-start my-auto px-5"
+      style="width: fit-content"
+    >
+      <h1 class="mb-4" style="text-transform: uppercase">Your Exams</h1>
+      <p class="mb-4" style="letter-spacing: 2px; width: 80%">
+        You can find all your exams here, and you can take it to achieve more
+        success !
+      </p>
       <div class="spanDiv">
         <span>Good Luck 💥</span>
       </div>
     </div>
   </div>
 
-  <div class="content" style="margin-top: 100px;" >
-    <div class="row gap-5   d-flex flex-wrap justify-content-center">
-      @for (exam of examsList; track exam.id) {
-        <div class="card   mb-4">
-          <div class="card-body">
-            <h4 class="card-title">{{exam.title}}</h4>
-            <p class="card-text">{{exam.description}}</p>
-            <h5> Duration: {{exam.duration}} hr </h5>
-            <span> Created At: {{ exam.createdAt | date : "mediumDate" }} </span>
-            <a href="#" class="btn  mt-4 btnTakeExam" [routerLink]="['/exams', exam.id]" >Take Exam</a>
-          </div>
-          </div>
+  <div class="content" style="margin-top: 100px">
+    <div class="row gap-5 d-flex flex-wrap justify-content-center">
+      @for (exam of examsList; track exam._id) {
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title">{{ exam.title }}</h4>
+          <p class="card-text">{{ exam.description }}</p>
+          <h5>Duration: {{ exam.duration }} hr</h5>
+          <span> Created At: {{ exam.createdAt | date : "mediumDate" }} </span>
+          <a
+            href="#"
+            class="btn mt-4 btnTakeExam"
+            [routerLink]="['/exams', exam._id]"
+            >Take Exam</a
+          >
+        </div>
+      </div>
       }
-      
-      <div class="card  mb-4" >
+
+      <div class="card mb-4">
         <div class="card-body">
           <h3 class="card-title">Card title</h3>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
           </p>
-          <h5> Duration: 2 hr </h5>
+          <h5>Duration: 2 hr</h5>
           <span> Created At: 5/5/2025 </span>
-          <a href="#" class="btn  mt-4 btnTakeExam">Take Exam</a>
+          <a href="#" class="btn mt-4 btnTakeExam">Take Exam</a>
         </div>
       </div>
-      <div class="card  mb-4" >
+      <div class="card mb-4">
         <div class="card-body">
           <h3 class="card-title">Card title</h3>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
           </p>
-          <h5> Duration: 2 hr </h5>
+          <h5>Duration: 2 hr</h5>
           <span> Created At: 5/5/2025 </span>
-          <a href="#" class="btn  mt-4 btnTakeExam">Take Exam</a>
+          <a href="#" class="btn mt-4 btnTakeExam">Take Exam</a>
         </div>
       </div>
-      <div class="card   mb-4" >
+      <div class="card mb-4">
         <div class="card-body">
           <h3 class="card-title">Card title</h3>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
           </p>
-          <h5> Duration: 2 hr </h5>
+          <h5>Duration: 2 hr</h5>
           <span> Created At: 5/5/2025 </span>
-          <a href="#" class="btn  mt-4 btnTakeExam">Take Exam</a>
+          <a href="#" class="btn mt-4 btnTakeExam">Take Exam</a>
         </div>
       </div>
     </div>

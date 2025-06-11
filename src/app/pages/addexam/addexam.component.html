@@ -16,7 +16,7 @@
   <div formArrayName="questions" class="question-group">
     <div [formGroupName]="i">
       <label for="qtext">Question Text:</label>
-      <input formControlName="text" id="qtext" />
+      <input formControlName="questionText" id="qtext" />
       <div formArrayName="options">
         @for (optCtrl of getOptionsFormArray(i).controls; track $index; let j =
         $index) {

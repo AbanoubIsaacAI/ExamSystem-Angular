@@ -3,7 +3,7 @@
   <div class="loading-state">Loading exam...</div>
   } @else {
   <form>
-    @for (question of questions; track question.id) {
+    @for (question of questions; track question._id) {
     <div class="question-card">
       <h3>{{ question.questionText }}</h3>
 
@@ -11,13 +11,13 @@
         @for (option of question.options; track $index) {
         <label
           class="option"
-          [class.selected]="isSelected(question.id, $index)"
+          [class.selected]="isSelected(question._id, $index)"
         >
           <input
             type="radio"
-            [name]="'q_' + question.id"
+            [name]="'q_' + question._id"
             [value]="$index"
-            (change)="selectAnswer(question.id, $index)"
+            (change)="selectAnswer(question._id, $index)"
           />
           <span class="option-letter">{{ optionsLetters[$index] }}</span>
           {{ option }}

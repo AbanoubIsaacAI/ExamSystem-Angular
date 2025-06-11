@@ -1,5 +1,5 @@
 export interface Question {
-  id: string;
+  _id: string;
   examId: string;
   questionText: string;
   options?: string[];

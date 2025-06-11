@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
-import { User } from '../../models/user.model';
 import {
   FormControl,
   FormGroup,
@@ -12,47 +10,44 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit {
-  constructor(
-    private UsersService: UsersService,
-    private router: Router,
-    private authService: AuthService
-  ) {}
-  ngOnInit(): void {
-    this.UsersService.getAllUsers().subscribe({
-      next: (response: User[]) => {
-        this.allUsers = response;
-        console.log(this.allUsers);
-      },
-    });
-  }
-  allUsers: User[] = [];
-
   loginForm = new FormGroup({
     identifier: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
-  isValidLogin: boolean = false;
-  login() {
-    const formValues = this.loginForm.value;
-    const input = formValues.identifier;
-    const password = formValues.password;
 
-    const matchedUser = this.allUsers.find(
-      (user) =>
-        (user.email === input || user.username === input) &&
-        user.password === password
-    );
-    if (!matchedUser) {
-      alert('invaild login');
-      return;
+  isValidLogin: boolean = true;
+  errorMessage: string = '';
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    if (this.authService.getCurrentUser()) {
+      this.router.navigate(['/home']);
     }
-    this.authService.setCurrentUser(matchedUser);
-    console.log(this.authService.getCurrentUser());
-    this.router.navigate(['/home']);
+  }
+
+  login() {
+    if (this.loginForm.invalid) return;
+
+    const { identifier, password } = this.loginForm.value;
+
+    this.authService
+      .login({ email: identifier!, password: password! })
+      .subscribe({
+        next: (response: any) => {
+          const userWithToken = { ...response.user, token: response.token };
+          this.authService.setCurrentUser(userWithToken);
+          this.router.navigate(['/home']);
+        },
+        error: () => {
+          this.errorMessage = 'Invalid login';
+        },
+      });
   }
 }

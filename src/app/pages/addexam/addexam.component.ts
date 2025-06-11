@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { v4 as uuidv4 } from 'uuid';
 import { ExamsService } from '../../services/exams.service';
 import { Router } from '@angular/router';
 @Component({
@@ -38,7 +37,7 @@ export class AddexamComponent implements OnInit {
   }
 
   examForm = new FormGroup({
-    id: new FormControl(uuidv4()),
+    _id: new FormControl(''),
     title: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     duration: new FormControl(0, [Validators.required, Validators.min(1)]),
@@ -65,7 +64,7 @@ export class AddexamComponent implements OnInit {
 
     this.questionsFormArray.push(
       new FormGroup({
-        text: new FormControl('', Validators.required),
+        questionText: new FormControl('', Validators.required),
         options: optionsArray,
         correctAnswerIndex: new FormControl(0, Validators.required),
         points: new FormControl(10, Validators.required),
@@ -86,7 +85,7 @@ export class AddexamComponent implements OnInit {
     if (this.examForm.valid) {
       const ExamValues = this.examForm.value;
       const newExam = {
-        id: ExamValues.id!,
+        _id: ExamValues._id!,
         title: ExamValues.title!,
         description: ExamValues.description!,
         duration: ExamValues.duration!,

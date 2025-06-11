@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -13,6 +13,7 @@ import { Question } from '../../models/question.model';
 
 @Component({
   selector: 'app-editexams',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './editexams.component.html',
   styleUrl: './editexams.component.css',
@@ -36,25 +37,7 @@ export class EditexamsComponent implements OnInit {
       next: (response) => {
         this.currentExam = response;
         this.questions = response.questions || [];
-
         this.initializeForm();
-
-        this.examForm
-          .get('questionsNumber')
-          ?.valueChanges.subscribe((value) => {
-            const number = +value;
-            const currentLength = this.questionsFormArray.length;
-
-            if (number > currentLength) {
-              for (let i = currentLength; i < number; i++) {
-                this.addQuestion();
-              }
-            } else if (number < currentLength) {
-              for (let i = currentLength - 1; i >= number; i--) {
-                this.questionsFormArray.removeAt(i);
-              }
-            }
-          });
       },
       error: (error) => {
         console.error('Error loading exam:', error);
@@ -69,6 +52,7 @@ export class EditexamsComponent implements OnInit {
     const questionFormGroups = this.questions.map(
       (q) =>
         new FormGroup({
+          questionId: new FormControl(q._id),
           questionText: new FormControl(q.questionText, Validators.required),
           options: new FormArray(
             (q.options ?? []).map(
@@ -84,7 +68,7 @@ export class EditexamsComponent implements OnInit {
     );
 
     this.examForm = new FormGroup({
-      id: new FormControl(this.currentExam.id),
+      _id: new FormControl(this.currentExam._id),
       title: new FormControl(this.currentExam.title, Validators.required),
       description: new FormControl(this.currentExam.description),
       duration: new FormControl(this.currentExam.duration, [
@@ -92,10 +76,6 @@ export class EditexamsComponent implements OnInit {
         Validators.min(1),
       ]),
       passingScore: new FormControl(this.currentExam.passingScore, [
-        Validators.required,
-        Validators.min(1),
-      ]),
-      questionsNumber: new FormControl(this.questions.length, [
         Validators.required,
         Validators.min(1),
       ]),
@@ -121,31 +101,48 @@ export class EditexamsComponent implements OnInit {
       new FormControl('', Validators.required),
     ]);
 
-    this.questionsFormArray.push(
-      new FormGroup({
-        questionText: new FormControl('', Validators.required),
-        options: optionsArray,
-        correctAnswerIndex: new FormControl(0, Validators.required),
-        points: new FormControl(10, Validators.required),
-      })
-    );
+    const newQuestionGroup = new FormGroup({
+      questionId: new FormControl(null), // null indicates a new question
+      questionText: new FormControl('', Validators.required),
+      options: optionsArray,
+      correctAnswerIndex: new FormControl(0, Validators.required),
+      points: new FormControl(10, Validators.required),
+    });
+
+    this.questionsFormArray.push(newQuestionGroup);
+
+    // Trigger form array change for Angular's change detection
+    this.examForm.patchValue({
+      questions: this.questionsFormArray.value,
+    });
   }
 
   removeQuestion(index: number) {
     this.questionsFormArray.removeAt(index);
+
+    // Trigger form array change for Angular's change detection
+    this.examForm.patchValue({
+      questions: this.questionsFormArray.value,
+    });
   }
 
   submitExam() {
     if (this.examForm.valid) {
       const formValue = this.examForm.value;
 
-      const updatedExam: Exam = {
-        id: formValue.id!,
+      const updatedExam: any = {
+        _id: formValue._id!,
         title: formValue.title!,
         description: formValue.description!,
         duration: formValue.duration!,
         passingScore: formValue.passingScore!,
-        questions: formValue.questions!,
+        questions: formValue.questions.map((q: any) => ({
+          questionId: q.questionId || null, // keep null for new questions
+          questionText: q.questionText,
+          options: q.options,
+          correctAnswerIndex: q.correctAnswerIndex,
+          points: q.points,
+        })),
         createdAt: this.currentExam.createdAt,
       };
 

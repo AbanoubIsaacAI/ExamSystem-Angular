@@ -6,28 +6,20 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UsersService } from '../../services/users.service';
-import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css',
+  styleUrls: ['./signup.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule],
 })
 export class SignupComponent implements OnInit {
-  constructor(private UsersService: UsersService, private router: Router) {}
-  ngOnInit(): void {
-    this.UsersService.getAllUsers().subscribe({
-      next: (response: User[]) => {
-        this.allUsers = response;
-        console.log(this.allUsers);
-      },
-    });
-  }
-
-  allUsers!: User[];
+  allUsers: User[] = [];
+  doesEmailExist: boolean = false;
 
   registrationForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -44,6 +36,12 @@ export class SignupComponent implements OnInit {
     ]),
   });
 
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    // Optional: if your backend already checks for existing email, you can skip this
+  }
+
   getName() {
     return this.registrationForm.controls['name'];
   }
@@ -53,47 +51,32 @@ export class SignupComponent implements OnInit {
   getPassword() {
     return this.registrationForm.controls['password'];
   }
-  doesEmailExist: boolean = false;
-  addUser() {
+
+  Register(e: Event) {
+    e.preventDefault();
     if (this.registrationForm.invalid) {
       alert('Please fix the errors before submitting.');
       return;
     }
 
     const formValues = this.registrationForm.value;
-
-    this.doesEmailExist = this.allUsers.some(
-      (user) => user.email === formValues.email
-    );
-
-    if (this.doesEmailExist) {
-      return;
-    }
     const newUser: User = {
-      id: uuidv4(),
+      id: uuidv4(), // You might omit this if backend auto-generates ID
       username: formValues.name ?? '',
       email: formValues.email ?? '',
       password: formValues.password ?? '',
       role: 'student',
     };
 
-    this.UsersService.AddNewUser(newUser).subscribe({
-      next: (createdUser: User) => {
-        console.log('User created:', createdUser);
+    this.authService.register(newUser).subscribe({
+      next: (response: any) => {
+        console.log('User registered:', response);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.error('Error creating user:', err);
+        console.error('Registration failed:', err);
+        alert('Registration failed. Please try again.');
       },
     });
-    this.router.navigate(['/login']);
-  }
-
-  Register(e: Event) {
-    e.preventDefault();
-    if (this.registrationForm.status == 'VALID') {
-      this.addUser();
-    } else {
-      alert('Fix the errors');
-    }
   }
 }

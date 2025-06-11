@@ -1,20 +1,35 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private baseUrl = 'http://localhost:5000/auth';
   private currentUserSubject: BehaviorSubject<User | null>;
-  currentUser$;
+  currentUser$: Observable<User | null>;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     const storedUser = localStorage.getItem('currentUser');
     this.currentUserSubject = new BehaviorSubject<User | null>(
       storedUser ? JSON.parse(storedUser) : null
     );
     this.currentUser$ = this.currentUserSubject.asObservable();
+  }
+
+  login(credentials: { email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/login`, credentials);
+  }
+
+  register(data: User): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, data);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
   }
 
   setCurrentUser(user: User) {

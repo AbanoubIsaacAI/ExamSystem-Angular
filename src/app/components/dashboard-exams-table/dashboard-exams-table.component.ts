@@ -43,7 +43,7 @@ export class DashboardExamsTableComponent implements OnInit, OnChanges {
 
   deleteExam(id: string): void {
     this.examsService.deleteExam(id).subscribe(() => {
-      this.allExams = this.allExams.filter((exam) => exam.id !== id);
+      this.allExams = this.allExams.filter((exam) => exam._id !== id);
       this.applyFilter();
     });
   }

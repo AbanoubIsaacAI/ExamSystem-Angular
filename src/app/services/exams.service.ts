@@ -8,7 +8,7 @@ import { Exam } from '../models/exam.model';
 })
 export class ExamsService {
   constructor(private http: HttpClient) {}
-  baseurl: string = 'http://localhost:8000/exams';
+  baseurl: string = 'http://localhost:5000/exams';
 
   getAllexams(): Observable<Exam[]> {
     return this.http.get<Exam[]>(this.baseurl);
@@ -17,9 +17,8 @@ export class ExamsService {
   getExamById(examId: string): Observable<Exam> {
     return this.http.get<Exam>(`${this.baseurl}/${examId}`);
   }
-
   addExam(exam: Exam): Observable<Exam> {
-    return this.http.post<Exam>(this.baseurl, exam, {
+    return this.http.post<Exam>(`${this.baseurl}/add-exam`, exam, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
   }
@@ -28,7 +27,7 @@ export class ExamsService {
   }
   updateExam(updatedExam: Exam): Observable<Exam> {
     return this.http.put<Exam>(
-      `${this.baseurl}/${updatedExam.id}`,
+      `${this.baseurl}/${updatedExam._id}/full`,
       updatedExam
     );
   }
