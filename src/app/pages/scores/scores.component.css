@@ -1,76 +1,114 @@
+.score-container {
+  padding-bottom: 2rem;
+}
+
 .top-section {
-    background-image: url("/page-title-bg.jpg");
-    height: 80vh;
-    width: 100%;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    color: white;
+  background-image: url("/page-title-bg.jpg");
+  height: 80vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: white;
 }
 
 .top-section .spanDiv {
-    border-radius: 6px;
-    padding: 10px 20px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 19px;
-    color: #fbff4e;
-    background: rgb(0 255 220 / 52%);
-    cursor: pointer;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #fbff4e;
+  background: rgb(0 255 220 / 52%);
+  cursor: pointer;
 }
 
-.content{
-    margin-top: 50px;
+.content {
+  margin-top: 50px;
 }
-.cardBox{
-    border: 2px solid #b5b6b6;
-    padding: 20px;
-    border-radius: 10px;
-    transition: ease-in-out 0.2s;
-    width: 30%;
-    min-width: 300px;
-    position: relative;
+
+.cardBox {
+  border: 2px solid #b5b6b6;
+  padding: 20px;
+  border-radius: 10px;
+  transition: ease-in-out 0.2s;
+  width: 30%;
+  /* min-width: 300px; */
+  position: relative;
+  background-color: white;
 }
-.cardBox .imgBox{
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    background: rgba(36, 93, 81, 0.1);
-    margin: auto 20px auto 0px;
+
+.cardBox .imgBox {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background: rgba(36, 93, 81, 0.1);
+  margin: auto 20px auto 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.cardBox img{
-    width: 30px;
-    height: 30px;
-    margin: auto;
+
+.cardBox img {
+  width: 30px;
+  height: 30px;
+  margin: auto;
 }
 
 .cardBox:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-    box-shadow: rgba(36, 93, 81, 0.3) 0px 7px 29px 0px;
+  transform: scale(1.05);
+  cursor: pointer;
+  box-shadow: rgba(36, 93, 81, 0.3) 0px 7px 29px 0px;
 }
 
-.failed, .passed{
-    font-weight: bold;
-    font-size: 18px;
-    padding: 5px 10px;
-    margin-left: 5px;
-}
-.Failed{
-    color:red;
-    background-color: rgb(255, 170, 170);
-}
-.passed{
-    color: #348775;
-    background-color: rgba(36, 93, 81, 0.1);
+.failed,
+.passed {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px 10px;
+  margin-left: 5px;
+  border-radius: 4px;
 }
 
-.status{
-    position: absolute;
-    bottom: 0;
-    right: 5px;
-
+.failed {
+  color: red;
+  background-color: rgb(255, 170, 170);
 }
-h3,strong{
-    color: #1f5448;
+
+.passed {
+  color: #348775;
+  background-color: rgba(36, 93, 81, 0.1);
+}
+
+.status {
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
+h3,
+strong {
+  color: #1f5448;
+}
+
+.student-info {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .cardBox {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .imgBox {
+    margin: 0 auto 1rem auto;
+  }
+
+  .status {
+    position: static;
+    margin-top: 1rem;
+  }
 }
