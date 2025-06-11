@@ -1,40 +1,82 @@
 <div class="score-container">
-
   <div class="top-section d-flex">
-    <div class="d-flex flex-column justify-content-center  align-items-start  my-auto px-5" style="width: fit-content;">
-      <h1 class="mb-4" style="text-transform: uppercase;">Your Scores</h1>
-      <p class="mb-4" style="letter-spacing: 2px; width: 80%;">You can find all your scores here, and you can review it
-        achieve more success !</p>
+    <div
+      class="d-flex flex-column justify-content-center align-items-start my-auto px-5"
+      style="width: fit-content"
+    >
+      @if(currentUser?.role==='student'){
+      <h1 class="mb-4 text-uppercase">Your Scores</h1>
+      } @else if(currentUser?.role==='admin'){
+      <h1 class="mb-4 text-uppercase">All Scores</h1>
+      }
+      <p class="mb-4" style="letter-spacing: 2px; width: 80%">
+        You can find all your scores here, and you can review them to achieve
+        more success!
+      </p>
       <div class="spanDiv">
         <span>Keep Going 💥</span>
       </div>
     </div>
   </div>
-  @if (currentUser?.result?.length) {
- <div class="content row gap-5   d-flex flex-wrap justify-content-center">
-  @for (res of results; track $index) {
-  
-  <div class="d-flex flex-sm-column flex-md-row flex-lg-row  cardBox">
-    <div class="imgBox  d-flex align-content-center justify-content-center">
-      <img src="/iconScore.svg" />
+
+  @if (currentUser?.role === 'admin') {
+  <div class="content row gap-5 d-flex flex-wrap justify-content-center">
+    @for (res of allResults; track $index) {
+    <div class="d-flex flex-sm-column flex-md-row flex-lg-row cardBox">
+      <div class="imgBox d-flex align-content-center justify-content-center">
+        <img src="/iconScore.svg" alt="score" />
+      </div>
+      <div class="result-card d-flex flex-column mb-4">
+        <h3 class="mb-3">Exam: {{ res.exam?.title || "N/A" }}</h3>
+        <p>
+          <strong>Student:</strong> {{ res.student?.username || "Unknown" }}
+        </p>
+        <p><strong>Score:</strong> {{ res.score }} / {{ res.total }}</p>
+        <p>
+          <strong>Submitted:</strong> {{ res.submittedAt | date : "medium" }}
+        </p>
+        <p class="status mt-2">
+          <strong>Status:</strong>
+          <span [class.passed]="res.passed" [class.failed]="!res.passed">
+            {{ res.passed ? "Passed" : "Failed" }}
+          </span>
+        </p>
+      </div>
     </div>
-    <div class="result-card  d-flex flex-column mb-4">
-      <h3 class="mb-3" >Exam ID : {{ res.examID }}</h3>
-      <p><strong>Score :</strong> {{ res.score }} / {{ res.total }}</p>
-      <p><strong>Submitted : </strong> {{ res.submittedAt | date : "medium" }}</p>
-      <p class="status mt-2" >
-        <strong>Status : </strong>
-        <span [class.passed]="res.passed" [class.failed]="!res.passed">
-          {{ res.passed ? "Passed" : "Failed" }}
-        </span>
-      </p>
-    </div> 
+    }
   </div>
-} 
-
- </div>
-}@else {
-<button class="btn btn-danger"  >No exam results found.</button> 
-}
-
+  } @else if (currentUser?.role === 'student') { @if (results.length > 0) {
+  <div class="content row gap-5 d-flex flex-wrap justify-content-center">
+    @for (res of results; track $index) {
+    <div class="d-flex flex-sm-column flex-md-row flex-lg-row cardBox">
+      <div class="imgBox d-flex align-content-center justify-content-center">
+        <img src="/iconScore.svg" alt="score" />
+      </div>
+      <div class="result-card d-flex flex-column mb-4">
+        <h3 class="mb-3">Exam: {{ res.exam?.title || "N/A" }}</h3>
+        <p><strong>Score:</strong> {{ res.score }} / {{ res.total }}</p>
+        <p>
+          <strong>Submitted:</strong> {{ res.submittedAt | date : "medium" }}
+        </p>
+        <p class="status mt-2">
+          <strong>Status:</strong>
+          <span [class.passed]="res.passed" [class.failed]="!res.passed">
+            {{ res.passed ? "Passed" : "Failed" }}
+          </span>
+        </p>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="text-center mt-4">
+    <p class="text-muted">No exam results found.</p>
+  </div>
+  } } @else {
+  <div class="text-center mt-4">
+    <button class="btn btn-danger">
+      You must be logged in to view results.
+    </button>
+  </div>
+  }
 </div>

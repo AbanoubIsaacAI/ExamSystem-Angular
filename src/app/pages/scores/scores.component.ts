@@ -1,23 +1,40 @@
-import { DatePipe } from '@angular/common';
-import { Result } from '../../models/results.model';
-import { User } from './../../models/user.model';
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Result } from '../../models/results.model';
+import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
+import { ResultsService } from '../../services/results.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-scores',
-  imports: [DatePipe],
+  standalone: true,
   templateUrl: './scores.component.html',
-  styleUrl: './scores.component.css',
+  styleUrls: ['./scores.component.css'],
+  imports: [DatePipe],
 })
 export class ScoresComponent implements OnInit {
-  constructor(private AuthService: AuthService) {}
+  currentUser: User | null = null;
+  results: Result[] = []; // For students
+  allResults: Result[] = []; // For admin
+
+  constructor(
+    private authService: AuthService,
+    private resultsService: ResultsService
+  ) {}
+
   ngOnInit(): void {
-    this.AuthService.currentUser$.subscribe((user) => {
+    this.authService.currentUser$.subscribe((user) => {
       this.currentUser = user;
-      this.results = this.currentUser?.result || [];
+
+      if (user?.role === 'admin') {
+        this.resultsService.getAllresults().subscribe((res) => {
+          this.allResults = res;
+        });
+      } else {
+        this.resultsService.getStudentresults().subscribe((res) => {
+          this.results = res;
+        });
+      }
     });
   }
-  currentUser: User | null = null;
-  results: Result[] = [];
 }

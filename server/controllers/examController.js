@@ -62,6 +62,17 @@ exports.submitExam = async (req, res) => {
       return res.status(404).json({ message: "Exam not found" });
     }
 
+    // Optional: prevent re-submission
+    const existingResult = await Result.findOne({
+      student: req.user._id,
+      exam: examId,
+    });
+    if (existingResult) {
+      return res
+        .status(400)
+        .json({ message: "You have already submitted this exam." });
+    }
+
     const examQuestions = await Question.find({ examId });
 
     let score = 0;
@@ -75,7 +86,8 @@ exports.submitExam = async (req, res) => {
       if (!userAnswer) continue;
 
       const isCorrect =
-        userAnswer.selectedIndex === question.correctAnswerIndex;
+        Number(userAnswer.selectedIndex) ===
+        Number(question.correctAnswerIndex);
 
       const questionPoints = question.points || 1;
       total += questionPoints;
@@ -91,6 +103,7 @@ exports.submitExam = async (req, res) => {
 
     const percentage = (score / total) * 100;
     const passed = percentage >= exam.passingScore;
+
     const result = await Result.create({
       student: req.user._id,
       exam: examId,
@@ -101,18 +114,21 @@ exports.submitExam = async (req, res) => {
     });
 
     res.status(201).json({
-      message: "Exam submitted",
+      message: "Exam submitted successfully",
       score,
       total,
       percentage: percentage.toFixed(2),
       passed,
+      answers: resultAnswers,
     });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error submitting exam", error: err.message });
+    res.status(500).json({
+      message: "Error submitting exam",
+      error: err.message,
+    });
   }
 };
+
 exports.updateExamWithQuestions = async (req, res) => {
   try {
     const examId = req.params.id;

@@ -8,14 +8,17 @@ import { Result } from '../models/results.model';
 })
 export class ResultsService {
   constructor(private http: HttpClient) {}
-  baseurl: string = 'http://localhost:8000/results';
+  baseurl: string = 'http://localhost:5000/results';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
   };
   getAllresults(): Observable<Result[]> {
-    return this.http.get<Result[]>(this.baseurl);
+    return this.http.get<Result[]>(`${this.baseurl}/all`);
+  }
+  getStudentresults(): Observable<Result[]> {
+    return this.http.get<Result[]>(`${this.baseurl}/my`);
   }
 
   getResultById(examId: string, studentId: string): Observable<Result> {

@@ -31,4 +31,25 @@ export class ExamsService {
       updatedExam
     );
   }
+  submitExamAnswers(submittedExam: {
+    examId: string;
+    answers: {
+      questionId: string;
+      selectedOptionIndex: number;
+    }[];
+  }): Observable<{
+    message: string;
+    score: number;
+    total: number;
+    percentage: string;
+    passed: boolean;
+  }> {
+    return this.http.post<{
+      message: string;
+      score: number;
+      total: number;
+      percentage: string;
+      passed: boolean;
+    }>(`${this.baseurl}/submit`, submittedExam);
+  }
 }

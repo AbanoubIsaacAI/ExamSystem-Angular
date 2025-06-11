@@ -1,14 +1,22 @@
-import { UsersService } from './../../services/users.service';
-import { AuthService } from './../../services/auth.service';
-import { Question } from '../../models/question.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExamsService } from '../../services/exams.service';
+
 import { Exam } from '../../models/exam.model';
-import { ExamTimerComponent } from '../../components/exam-timer/exam-timer.component';
+import { Question } from '../../models/question.model';
 import { User } from '../../models/user.model';
 import { Answers } from '../../models/answers.model';
 import { Result } from '../../models/results.model';
+import {
+  SubmittedAnswerPayload,
+  ExamSubmitResponse,
+} from '../../models/exam-submit.model';
+
+import { ExamsService } from '../../services/exams.service';
+import { AuthService } from '../../services/auth.service';
+import { UsersService } from '../../services/users.service';
+import { ResultsService } from '../../services/results.service';
+
+import { ExamTimerComponent } from '../../components/exam-timer/exam-timer.component';
 
 @Component({
   selector: 'app-examsquestions',
@@ -27,23 +35,24 @@ export class ExamsquestionsComponent implements OnInit {
   totalDegree: number = 0;
   isLoading: boolean = true;
   isSubmitting: boolean = false;
+  currentUser: User | null = null;
 
   constructor(
     private examsService: ExamsService,
     private activateRoute: ActivatedRoute,
     private router: Router,
-    private AuthService: AuthService,
-    private UsersService: UsersService
+    private authService: AuthService,
+    private usersService: UsersService,
+    private resultsService: ResultsService
   ) {}
 
   ngOnInit(): void {
     this.examId = this.activateRoute.snapshot.paramMap.get('id') || '';
     this.loadExamData();
-    this.AuthService.currentUser$.subscribe((user) => {
+    this.authService.currentUser$.subscribe((user) => {
       this.currentUser = user;
     });
   }
-  currentUser: User | null = null;
 
   private loadExamData(): void {
     this.examsService.getExamById(this.examId).subscribe({
@@ -84,60 +93,67 @@ export class ExamsquestionsComponent implements OnInit {
     this.submitAnswers();
   };
 
-  updateUserProfile() {
-    if (!this.currentUser) return;
-
-    const newResult: Result = {
-      studentID: this.currentUser.id,
-      examID: this.examId,
-      examTitle: this.currentExam.title,
-      score: this.score,
-      total: this.totalDegree,
-      passed: this.score >= this.currentExam.passingScore,
-      answers: this.getAnswersForSubmission(),
-      submittedAt: new Date(),
-    };
-
-    const updatedUser: User = {
-      ...this.currentUser,
-      result: [...(this.currentUser.result || []), newResult],
-    };
-
-    this.UsersService.updateUser(this.currentUser.id, updatedUser).subscribe({
-      next: (user) => {
-        this.currentUser = user;
-      },
-      error: (err) => {
-        console.error('Failed to update user with result:', err);
-      },
-    });
-  }
-
-  submitAnswers(event?: Event): void {
+  async submitAnswers(event?: Event): Promise<void> {
     event?.preventDefault();
+    if (this.isSubmitting || !this.currentUser) return;
 
-    if (this.isSubmitting) return;
     this.isSubmitting = true;
 
-    try {
-      const answers = this.getAnswersForSubmission();
-      this.calculateScore(answers);
+    const answers: SubmittedAnswerPayload[] = Object.keys(
+      this.selectedAnswers
+    ).map((questionId) => ({
+      questionId,
+      selectedOptionIndex: this.selectedAnswers[questionId],
+    }));
 
-      console.log(`Score: ${this.score}/${this.totalDegree}`);
-      this.updateUserProfile();
-      this.router.navigate(['/scores'], {
-        state: {
+    const payload = {
+      examId: this.examId,
+      answers,
+    };
+
+    console.log('Submitting payload:', payload);
+
+    this.examsService.submitExamAnswers(payload).subscribe({
+      next: (response: ExamSubmitResponse) => {
+        console.log('Backend response:', response);
+
+        this.score = response?.score ?? 0;
+        this.totalDegree = response?.total ?? 0;
+
+        const result: Result = {
+          student: this.currentUser!,
+          exam: this.currentExam!,
           score: this.score,
-          totalDegree: this.totalDegree,
-          examId: this.examId,
-          examTitle: this.currentExam?.title || 'Exam Results',
-          isAutoSubmitted: !event,
-        },
-      });
-    } catch (error) {
-      console.error('Submission error:', error);
-      this.isSubmitting = false;
-    }
+          total: this.totalDegree,
+          passed: response?.passed ?? false,
+          answers: response.answers ?? [],
+          submittedAt: new Date(),
+        };
+
+        this.router.navigate(['/scores'], {
+          state: {
+            score: this.score,
+            totalDegree: this.totalDegree,
+            examId: this.examId,
+            examTitle: this.currentExam?.title || 'Exam Results',
+            isAutoSubmitted: !event,
+            answers: response.answers,
+          },
+        });
+      },
+      error: (error) => {
+        console.error('Submission error:', error);
+        alert(
+          `Error submitting exam answers: ${error?.message || 'Unknown error'}`
+        );
+        this.router.navigate(['/exams'], {
+          state: { error: 'Failed to submit exam answers' },
+        });
+      },
+      complete: () => {
+        this.isSubmitting = false;
+      },
+    });
   }
 
   private calculateTotalDegree(): void {
@@ -148,20 +164,19 @@ export class ExamsquestionsComponent implements OnInit {
   }
 
   private getAnswersForSubmission(): Answers[] {
-    return Object.keys(this.selectedAnswers).map((questionId) => ({
-      questionId,
-      selectedIndex: this.selectedAnswers[questionId],
-    }));
-  }
+    return Object.keys(this.selectedAnswers).map((questionId) => {
+      const selectedIndex = this.selectedAnswers[questionId];
+      const question = this.questions.find((q) => q._id === questionId);
+      const isCorrect =
+        question && question.correctAnswerIndex !== undefined
+          ? Number(selectedIndex) === Number(question.correctAnswerIndex)
+          : false;
 
-  private calculateScore(answers: Answers[]): void {
-    answers.map((answer, i) => {
-      if (
-        Number(answer.selectedIndex) ===
-        Number(this.questions[i].correctAnswerIndex)
-      ) {
-        this.score += this.questions[i].points;
-      }
+      return {
+        questionId,
+        selectedIndex,
+        isCorrect,
+      };
     });
   }
 }
